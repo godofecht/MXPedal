@@ -1,6 +1,11 @@
 #pragma once
 #include <JuceHeader.h>
 
+/*
+ Inspired by Sohyun IM's talk at ADC24
+ 
+ */
+
 template <typename... Stages>
 class CircuitModeledAudioEffect : public AudioEffect
 {
@@ -9,7 +14,7 @@ class CircuitModeledAudioEffect : public AudioEffect
 public:
     CircuitModeledAudioEffect()
     {
-        registerParameter("Drive", 0.0, 0.0f, 1.0f, 0.01f, "%");
+        registerParameter ("Drive", 0.0, 0.0f, 1.0f, 0.01f, "%");
     }
 
     void prepare(const juce::dsp::ProcessSpec& spec) override
@@ -68,9 +73,7 @@ public:
     
     std::vector<ParameterizedAudioProcessor::ParamInfo> getParamInfo ()
     {
-        return
-        {
-        };
+        return {};
     }
     
     void processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
