@@ -14,7 +14,7 @@ public:
     
     ~MXPedalAudioProcessorEditor() override { setLookAndFeel (nullptr); }
 
-    bool keyPressed (const juce::KeyPress& key)
+    bool keyPressed (const juce::KeyPress& key) override
     {
         if (KeyShortcutManager::isCmdZ (key) && valueTreeState.undoManager->canUndo())
         {
