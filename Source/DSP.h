@@ -1,42 +1,38 @@
 #pragma once
 #include <JuceHeader.h>
 
-class PhysicallyModeledMXPedal : public AudioEffect
+template <typename... Stages>
+class CircuitModeledAudioEffect : public AudioEffect
 {
-    enum Parameters { HighFrequency, LowFrequency, Threshold, Ratio, Attack, Release };
-    
-    OpAmpStage stage1;
-    DistortionRotaryCircuit stage2;
-    CircuitStage stage3;
-    
+    std::tuple<Stages...> stages;
+
 public:
-    PhysicallyModeledMXPedal()
+    CircuitModeledAudioEffect()
     {
-        registerParameter ("Drive", 0.0, 1.0f, 0.0f, 0.01f, "%");
+        registerParameter("Drive", 0.0, 0.0f, 1.0f, 0.01f, "%");
     }
 
-    void prepare (const juce::dsp::ProcessSpec& spec) override 
+    void prepare(const juce::dsp::ProcessSpec& spec) override
     {
-        stage1.prepare (spec.sampleRate);
-        stage2.prepare (spec.sampleRate);
-        stage3.prepare (spec.sampleRate);
+        std::apply([&spec](auto&... stage) { ((stage.prepare(spec.sampleRate)), ...); }, stages);
     }
-    
-    void process (const juce::dsp::ProcessContextReplacing<float>& context) override
+
+    void process(const juce::dsp::ProcessContextReplacing<float>& context) override
     {
         auto inputBlock = context.getInputBlock();
         auto outputBlock = context.getOutputBlock();
         juce::AudioBuffer<float> buffer;
-        copyBlockToBuffer (inputBlock, buffer);
-        
-        stage1.process (buffer);
-//        stage2.process (buffer);
-//        stage3.process (buffer);
-        
-        copyBufferToBlock (buffer, outputBlock);
+        copyBlockToBuffer(inputBlock, buffer);
+
+        std::apply([&buffer](auto&... stage) { ((stage.process(buffer)), ...); }, stages);
+
+        copyBufferToBlock(buffer, outputBlock);
     }
-    
-    void reset() override {/* stage.reset();*/ }
+
+    void reset() override
+    {
+        std::apply([](auto&... stage) { ((stage.reset()), ...); }, stages);
+    }
 
     void updateParameters() override
     {
@@ -46,22 +42,28 @@ public:
     juce::String getName() const override { return "MXPedal"; }
 };
 
+using PhysicallyModeledMXPedal = CircuitModeledAudioEffect<OpAmpStage, DistortionRotaryCircuit, CircuitStage>;
+
 class DSP : public DSPBase
 {
-    PhysicallyModeledMXPedal pedal;
+    std::unique_ptr<SingleEffectGraphBuilder<PhysicallyModeledMXPedal>> pedal;
+    ParameterizedAudioProcessor* processor;
 public:
     
     DSP (ParameterizedAudioProcessor* _processor)
     {
+        processor = _processor;
     }
     
     void initialize()
     {
+        pedal = std::make_unique<SingleEffectGraphBuilder<PhysicallyModeledMXPedal>> (processor->getValueTreeParameters());
     }
     
     void prepare (double sampleRate, int samplesPerBlock)
     {
-        pedal.prepare (juce::dsp::ProcessSpec {sampleRate, static_cast<juce::uint32>(samplesPerBlock), 1});
+        pedal->prepare ({sampleRate, static_cast<juce::uint32>(samplesPerBlock), 1});
+        pedal->initialize();
     }
     
     std::vector<ParameterizedAudioProcessor::ParamInfo> getParamInfo ()
@@ -77,7 +79,7 @@ public:
         juce::dsp::AudioBlock<float> block (buffer);
         juce::dsp::ProcessContextReplacing<float> context (block);
         
-        pedal.process (context);
+        pedal->process (context);
         
         for (auto i = numInputChannels; i < numOutputChannels; ++i)
             buffer.clear (i, 0, buffer.getNumSamples());
