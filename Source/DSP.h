@@ -12,12 +12,7 @@ class PhysicallyModeledMXPedal : public AudioEffect
 public:
     PhysicallyModeledMXPedal()
     {
-        registerParameter ("HighFrequency", 1400.0f, 1400.0f, 8000.0f, 0.1f, "Hz");
-        registerParameter ("LowFrequency", 8000.0f, 8000.0f, 16000.0f, 0.1f, "Hz");
-        registerParameter ("Threshold", -20.0f, -40.0f, 0.0f, 0.1f, "dB");
-        registerParameter ("Ratio", 3.0f, 1.0f, 10.0f, 1.0f, ":1");
-        registerParameter ("Attack", 10.0f, 10.0f, 100.0f, 1.0f, "ms");
-        registerParameter ("Release", 50.0f, 10.0f, 500.0f, 1.0f, "ms");
+        registerParameter ("Drive", 0.0, 1.0f, 0.0f, 0.01f, "%");
     }
 
     void prepare (const juce::dsp::ProcessSpec& spec) override 
