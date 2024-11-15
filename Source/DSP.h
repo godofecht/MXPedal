@@ -31,7 +31,7 @@ public:
 
     void reset() override
     {
-        std::apply([](auto&... stage) { ((stage.reset()), ...); }, stages);
+//        std::apply([](auto&... stage) { ((stage.reset()), ...); }, stages);
     }
 
     void updateParameters() override
