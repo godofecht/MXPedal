@@ -25,7 +25,7 @@ public:
         dsp->prepare (sampleRate, samplesPerBlock);
     }
     
-    void processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+    void processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages) override
     {
 //        TRACE_DSP();
         dsp->processBlock (buffer, midiMessages);
