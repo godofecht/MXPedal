@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="PZuCpX" name="MXPedal" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+  <MAINGROUP id="qPxCl3" name="MXPedal">
+    <GROUP id="{960286B2-0E2D-46F9-EB52-E976E7CDE870}" name="Source">
+      <FILE id="nzqA4A" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="VuKSSx" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="MDjmcs" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="VXlH8r" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="SvDFND" name="GUI.h" compile="0" resource="0" file="Source/GUI.h"/>
+      <FILE id="PqYMpF" name="DSP.h" compile="0" resource="0" file="Source/DSP.h"/>
+      <FILE id="ElDg1b" name="parameters.csv" compile="0" resource="1" file="Source/parameters.csv"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="freeverb_wrapper" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="quilio_audio" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="quilio_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="quilio_ui" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="MXPedal"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="MXPedal"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="quilio_audio" path="../../QuilioSDK/quilio_engine/modules"/>
+        <MODULEPATH id="quilio_core" path="../../QuilioSDK/quilio_engine/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../QuilioSDK/JUCE/modules"/>
+        <MODULEPATH id="quilio_ui" path="../../QuilioSDK/quilio_engine/modules"/>
+        <MODULEPATH id="freeverb_wrapper" path="../../QuilioSDK/quilio_engine/dependencies"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
